@@ -1,5 +1,6 @@
 from datetime import date
 from dateutil.relativedelta import relativedelta 
+from functions import create_user
 
 class Czytelnik():
 
@@ -12,6 +13,9 @@ class Czytelnik():
         self.karta_aktywna = self.is_expired()
         self.kara = self.penalty_counter()
 
+
+    def __str__(self):
+        return f"Profil czytelnika: {self.username}\nJesteś członkiem naszej biblioteki do: {self.membership_expiration}\nWypożyczyłeś: {self.borrowed_books}\n(Ewentualna) kara na Twoim koncie za niezwrócone ksiązki wynosi: {self.kara}."
 
     def expiration_date(self):
         today = date.today()
@@ -30,6 +34,36 @@ class Czytelnik():
         else:
             return f"Kary brak, tak trzymać!"
 
+    
+'''
+Dodaj jeszcze jakąś fajną funkcję, żeby borrowed books, gdy puste, wyświetlało komunikat
+'''
+
+
+class Book():
+
+    def __init__(self,title, author, publication_year, genre):
+        self.title = title
+        self.author = author
+        self.publication_year = publication_year
+        self.availibility = bool
+        self.borrowed_by = str
+        self.genre = genre
 
 
 
+    def __hash__(self):
+        return hash(self.title)^hash(self.publication_year)
+
+# to jeszcze wymaga wyjaśnienia, ale chyba będzie przydatne
+    def __eq__(self, other):
+        if isinstance(other, Book):
+            return self.title == other.title
+        return False
+
+
+
+
+
+if __name__ == "__main__":
+    create_user()
